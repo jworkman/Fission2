@@ -1,0 +1,11 @@
+<h1>
+    Galaxies
+</h1>
+
+
+
+<ul>
+    <?php $this->galaxies->each(function($galaxy){ ?>
+        <li><a href="/admin/galaxy/<?= $galaxy->id ?>"><?= $galaxy->name ?></a></li>
+    <?php }); ?>
+</ul>

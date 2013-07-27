@@ -1,0 +1,14 @@
+<h1>
+    The <?= $this->galaxy->name ?> Galaxy
+</h1>
+
+
+<h3>Stars in the <?= $this->galaxy->name ?> Galaxy</h3>
+<ul>
+    <?php $this->galaxy->Stars()->each(function($star){ ?>
+        <li><a href="/admin/star/<?= $star->id ?>"><?= $star->name ?></a></li>
+    <?php }); ?>
+</ul>
+
+
+<?= make_link( delete_path( $this->galaxy ), "Remove Galaxy" )  ?>
