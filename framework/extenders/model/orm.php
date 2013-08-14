@@ -416,7 +416,16 @@ namespace Framework\Extenders\Model {
         }
 
 
-        public function toForm() {}
+        public function toForm( $formName = null ) {
+            
+            if(is_null($formName)) {
+                $objectName = strtolower(get_class($this));
+            } else {
+                $objectName = $formName;
+            }
+            require APPLICATION_PATH."html/forms/".$objectName.".phtml";
+            
+        }
         
         public function toView( $viewName = null, $data = null ) 
         {
@@ -426,7 +435,7 @@ namespace Framework\Extenders\Model {
             } else {
                 $objectName = $viewName;
             }
-            require APPLICATION_PATH."/views/scripts/objects/".ucfirst($objectName).".php";
+            require APPLICATION_PATH."html/objects/".ucfirst($objectName).".php";
             
         }
         

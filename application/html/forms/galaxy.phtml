@@ -1,0 +1,9 @@
+<?php $form = \HTML\Form::model($this)->create(); ?>
+    
+    <?= $form->textField( "name" )->attributes( array("placeholder" => "Name") )->create(); ?>
+    
+    <?= $form->textField( "size" )->attributes( array("placeholder" => "Size") )->create(); ?>
+
+    <?= $form->submit()->value("Submit")->create(); ?>
+    
+<?= $form->close(); ?>

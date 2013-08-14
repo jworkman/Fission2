@@ -6,9 +6,9 @@
 <h3>Stars in the <?= $this->galaxy->name ?> Galaxy</h3>
 <ul>
     <?php $this->galaxy->Stars()->each(function($star){ ?>
-        <li><a href="/admin/star/<?= $star->id ?>"><?= $star->name ?></a></li>
+        <li><?= make_link( show_path( $star ), $star->name )  ?></li>
     <?php }); ?>
 </ul>
 
-
+<?= make_link( edit_path( $this->galaxy ), "Edit Galaxy" )  ?><br/>
 <?= make_link( delete_path( $this->galaxy ), "Remove Galaxy" )  ?>

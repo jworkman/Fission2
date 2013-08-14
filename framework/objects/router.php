@@ -145,7 +145,7 @@ namespace Framework\Objects {
                         $this->params['id'] = $this->segments[1];
                     } elseif($this->verb == "POST" && !empty($this->segments[1])) 
                     {
-                        $action = "edit";
+                        $action = "show";
                         $this->params['id'] = $this->segments[1];
                     } 
                 }

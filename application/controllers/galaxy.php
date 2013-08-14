@@ -11,15 +11,15 @@ class GalaxyController extends Framework\Extenders\Controller\Base {
     }
     
     // POST Create New Galaxy
-    public function post_index() {
+    public function create() {
         
-        $this->galaxy = new Galaxy( $this->params['id'] );
+        $this->galaxy = new Galaxy();
         
-        if($this->galaxy->populate( $this->params['galaxy'] )) {
-            $this->invokeController('Galaxy', 'show', array('flash' => 'Galaxy created successfully!'));
+        if( $this->galaxy->populate( $this->params['galaxy'] ) ) {
+            $this->redirectTo( edit_path($this->galaxy) );
         }
         
-        $this->invokeController( 'Galaxy', 'get_edit', array('flash' => 'Failed to create a new Galaxy! Please try again.') );
+        $this->redirectTo( new_path( "Galaxy" ) );
         
     }
     
@@ -27,12 +27,13 @@ class GalaxyController extends Framework\Extenders\Controller\Base {
     public function get_show() {
         
         $this->galaxy = new Galaxy( $this->params['id'] );
-        $this->all($this->galaxy);
+        $this->all( $this->galaxy );
         
     }
     
     // POST Update One Galaxy
     public function post_show() {
+        
         
         $this->galaxy = new Galaxy( $this->params['id'] );
         

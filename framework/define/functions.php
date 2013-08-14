@@ -4,7 +4,7 @@ function delete_path( $model )
 {
     
     global $router;
-    $str = "/".strtolower(get_class( $model ))."/".$model->id."/delete";
+    $str = "/".plurilize(  strtolower(get_class( $model )) )."/".$model->id."/delete";
     if(!empty($router->scope)) {
         $str = "/".$router->scope.$str;
     }
@@ -15,7 +15,7 @@ function delete_path( $model )
 function update_path( $model )
 {
     global $router;
-    $str = "/".strtolower(get_class( $model ))."/".$model->id;
+    $str = "/".  plurilize( strtolower(get_class( $model )) )."/".$model->id;
     if(!empty($router->scope)) {
         $str = "/".$router->scope.$str;
     }
@@ -25,7 +25,7 @@ function update_path( $model )
 function edit_path( $model )
 {
     global $router;
-    $str = "/".strtolower(get_class( $model ))."/".$model->id."/edit";
+    $str = "/".plurilize( strtolower(get_class( $model )) )."/".$model->id."/edit";
     if(!empty($router->scope)) {
         $str = "/".$router->scope.$str;
     }
@@ -35,7 +35,7 @@ function edit_path( $model )
 function show_path( $model )
 {
     global $router;
-    $str = "/".strtolower(get_class( $model ))."/".$model->id;
+    $str = "/".plurilize( strtolower(get_class( $model )) )."/".$model->id;
     if(!empty($router->scope)) {
         $str = "/".$router->scope.$str;
     }
@@ -45,7 +45,7 @@ function show_path( $model )
 function index_path( $model )
 {
     global $router;
-    $str = "/".strtolower(get_class( $model ));
+    $str = "/".plurilize( strtolower(get_class( $model )) );
     if(!empty($router->scope)) {
         $str = "/".$router->scope.$str;
     }
@@ -55,7 +55,7 @@ function index_path( $model )
 function create_path( $model )
 {
     global $router;
-    $str = "/".strtolower(get_class( $model ));
+    $str = "/".plurilize( strtolower(get_class( $model )) );
     if(!empty($router->scope)) {
         $str = "/".$router->scope.$str;
     }
@@ -65,7 +65,12 @@ function create_path( $model )
 function new_path( $model )
 {
     global $router;
-    $str = "/".strtolower(get_class( $model ))."/new";
+    
+    if(gettype($model) == "string") {
+        $str = "/".plurilize( strtolower($model) )."/new";
+    } else {
+        $str = "/".plurilize( strtolower(get_class( $model )) )."/new";
+    }
     if(!empty($router->scope)) {
         $str = "/".$router->scope.$str;
     }

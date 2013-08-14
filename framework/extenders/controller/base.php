@@ -26,6 +26,8 @@ namespace Framework\Extenders\Controller {
             $this->setTemplate();
             $this->setAdditionalParams( $additionalParams );
             $this->_return_type = $return_type;
+            $this->addToParams( $_POST );
+            $this->addToParams( $_GET );
             
             if( $this->_http_verb == "GET" && method_exists($this, "get_".$action) ) {
                 $action = "get_".$action;
@@ -63,6 +65,17 @@ namespace Framework\Extenders\Controller {
                 $afterStr = $this->after;
                 $this->$afterStr();
                 
+            }
+            
+        }
+        
+        private function addToParams( $array )
+        {
+            
+            foreach(array_keys($array) as $key) 
+            {
+                if( is_numeric($key) ) { continue; } 
+                $this->params[$key] = $array[$key];
             }
             
         }
@@ -190,11 +203,25 @@ namespace Framework\Extenders\Controller {
             header("location: ".$path); exit;
         }
         
+        /**
+         * 
+         * @param string $controller - Controller name
+         * @param string $action - Action to request
+         * @param string $params - Parameters to pass to the controller
+         * @return \Framework\Extenders\Controller\Base
+         */
         public function invokeController( $controller, $action = "index", $params = array() )
         {
             $controllerStr      = ucfirst($controller)."Controller";
             require_once APPLICATION_PATH.CONTROLLERS.strtolower($controller).'.php';
-            $calledController = new $controllerStr( $this->params, $controller, $action, $this->_http_verb, $this->_return_type, $params );
+            $calledController = new $controllerStr( $this->params, $controller, $action, "GET", $this->_return_type, $params );
+            return $calledController;
+        }
+        
+        
+        public function terminateRequest()
+        {
+            exit;
         }
         
         

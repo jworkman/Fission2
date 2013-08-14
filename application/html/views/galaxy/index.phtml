@@ -6,6 +6,8 @@
 
 <ul>
     <?php $this->galaxies->each(function($galaxy){ ?>
-        <li><a href="/admin/galaxy/<?= $galaxy->id ?>"><?= $galaxy->name ?></a></li>
+    <li><a href="<?= show_path( $galaxy ) ?>"><?= $galaxy->name ?></a></li>
     <?php }); ?>
 </ul>
+
+<?= make_link(new_path("Galaxy"), "Create Galaxy") ?>
