@@ -16,6 +16,11 @@ namespace Framework\Objects {
         
         public function __construct( $scope = "" ) {
             
+            //If fission session is not set, set it
+            if(!isset($_SESSION["_fission_"]) || is_null($_SESSION["_fission_"])) {
+                $_SESSION["_fission_"] = array();
+            }
+            
             $this->scope = $scope;
             $this->request = $_SERVER['REQUEST_URI'];
             $this->returnType = $this->parseReturnType();

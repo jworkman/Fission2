@@ -28,6 +28,7 @@ namespace Framework\Extenders\Controller {
             $this->_return_type = $return_type;
             $this->addToParams( $_POST );
             $this->addToParams( $_GET );
+            $this->addToParams( $_SESSION["_fission_"] );
             
             if( $this->_http_verb == "GET" && method_exists($this, "get_".$action) ) {
                 $action = "get_".$action;
@@ -200,7 +201,18 @@ namespace Framework\Extenders\Controller {
         
         public function redirectTo( $path, $flash = null )
         {
+            $_SESSION["_fission_"]["flash"] = $flash;
             header("location: ".$path); exit;
+        }
+        
+        public function flash()
+        {
+            if(isset($_SESSION["_fission_"]["flash"]) && !is_null($_SESSION["_fission_"]["flash"]) && !empty($_SESSION["_fission_"]["flash"]))
+            {
+                echo $_SESSION["_fission_"]["flash"];
+                $_SESSION["_fission_"]["flash"] = null;
+                unset($_SESSION["_fission_"]["flash"]);
+            }
         }
         
         /**

@@ -16,10 +16,10 @@ class GalaxyController extends Framework\Extenders\Controller\Base {
         $this->galaxy = new Galaxy();
         
         if( $this->galaxy->populate( $this->params['galaxy'] ) ) {
-            $this->redirectTo( edit_path($this->galaxy) );
+            $this->redirectTo( edit_path($this->galaxy), "Galaxy created successfully!" );
         }
         
-        $this->redirectTo( new_path( "Galaxy" ) );
+        $this->redirectTo( new_path( "Galaxy" ), "Galaxy created successfully!" );
         
     }
     
@@ -38,10 +38,10 @@ class GalaxyController extends Framework\Extenders\Controller\Base {
         $this->galaxy = new Galaxy( $this->params['id'] );
         
         if($this->galaxy->populate( $this->params['galaxy'] )) {
-            $this->invokeController('Galaxy', 'show', array('flash' => 'Galaxy updated successfully!'));
+            $this->redirectTo( edit_path($this->galaxy), 'Galaxy updated successfully!' );
         } 
         
-        $this->invokeController( 'Galaxy', 'get_edit', array('flash' => 'Galaxy failed to update! Please try again.') );
+        $this->redirectTo( edit_path($this->galaxy), 'Galaxy failed to update! Please try again.' );
         
     }
     
@@ -65,10 +65,10 @@ class GalaxyController extends Framework\Extenders\Controller\Base {
     public function get_delete() {
         
         if( Galaxy::delete( $this->params['id'] ) ) {
-            $this->invokeController('Galaxy', 'index', array('flash' => 'Galaxy deleted successfully!'));
+            $this->redirectTo( 'Galaxy', 'Galaxy deleted successfully!' );
         } 
         
-        $this->invokeController('Galaxy', 'index', array('flash' => 'Galaxy could not be deleted! Please try again.'));
+        $this->redirectTo( 'Galaxy', 'Galaxy could not be deleted! Please try again.' );
         
     }
     

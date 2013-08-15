@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 //Framework Paths
 require_once '../framework/define/constants.php';
 
