@@ -45,7 +45,13 @@ function show_path( $model )
 function index_path( $model )
 {
     global $router;
-    $str = "/".plurilize( strtolower(get_class( $model )) );
+    
+    if(gettype($model) == "string") {
+        $str = "/".plurilize( strtolower($model) );
+    } else {
+        $str = "/".plurilize( strtolower(get_class( $model )) );
+    }
+    
     if(!empty($router->scope)) {
         $str = "/".$router->scope.$str;
     }
@@ -55,6 +61,12 @@ function index_path( $model )
 function create_path( $model )
 {
     global $router;
+    if(gettype($model) == "string") {
+        $str = "/".plurilize( strtolower($model) );
+    } else {
+        $str = "/".plurilize( strtolower(get_class( $model )) );
+    }
+    
     $str = "/".plurilize( strtolower(get_class( $model )) );
     if(!empty($router->scope)) {
         $str = "/".$router->scope.$str;

@@ -16,7 +16,7 @@ class GalaxyController extends Framework\Extenders\Controller\Base {
         $this->galaxy = new Galaxy();
         
         if( $this->galaxy->populate( $this->params['galaxy'] ) ) {
-            $this->redirectTo( edit_path($this->galaxy), "Galaxy created successfully!" );
+            $this->redirectTo( show_path($this->galaxy), "Galaxy created successfully!" );
         }
         
         $this->redirectTo( new_path( "Galaxy" ), "Galaxy created successfully!" );
@@ -64,8 +64,8 @@ class GalaxyController extends Framework\Extenders\Controller\Base {
     // GET Remove One Galaxy
     public function get_delete() {
         
-        if( Galaxy::delete( $this->params['id'] ) ) {
-            $this->redirectTo( 'Galaxy', 'Galaxy deleted successfully!' );
+        if( Galaxy::find( $this->params['id'] )->destroy() ) {
+            $this->redirectTo( index_path("Galaxy"), 'Galaxy deleted successfully!' );
         } 
         
         $this->redirectTo( 'Galaxy', 'Galaxy could not be deleted! Please try again.' );
